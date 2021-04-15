@@ -29,6 +29,8 @@ const convertWithOptions = (document, format, filter, options, callback) => {
                     return callback(new Error(`Operating system not yet supported: ${process.platform}`));
             }
 
+            console.log('paths', paths);
+
             return async.filter(
                 paths,
                 (filePath, callback) => fs.access(filePath, err => callback(null, !err)),
