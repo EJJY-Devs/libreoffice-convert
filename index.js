@@ -23,7 +23,6 @@ const convertWithOptions = (document, format, filter, options, callback) => {
                     path.join(process.env['PROGRAMFILES(X86)'], 'LIBREO~1/program/soffice.exe'),
                     path.join(process.env['PROGRAMFILES(X86)'], 'LibreOffice/program/soffice.exe'),
                     path.join(process.env.PROGRAMFILES, 'LibreOffice/program/soffice.exe'),
-                    path.join('C:\\Program Files', 'LibreOffice/program/soffice.exe')
                 ];
                     break;
                 default:
@@ -44,7 +43,7 @@ const convertWithOptions = (document, format, filter, options, callback) => {
         },
         saveSource: callback => fs.writeFile(path.join(tempDir.name, 'source'), document, callback),
         convert: ['soffice', 'saveSource', (results, callback) => {
-            let command = `${results.soffice} --headless --convert-to ${format}`;
+            let command = `-env:UserInstallation=file://${installDir.name} --headless --convert-to ${format}`;
             if (filter !== undefined) {
                 command += `:"${filter}"`;
             }
